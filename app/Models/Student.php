@@ -12,4 +12,11 @@ class Student extends Model
     protected $fillable = [
         'nisn', 'name', 'gender', 'dob', 'profile_pict', 'device_id'
     ];
+
+    protected $appends = ['profile_pict_url'];
+
+    public function getProfilePictUrlAttribute($value)
+    {
+        return $this->profile_pict ? url('/storage/students/profile-pict/' . $this->profile_pict) : null;
+    }
 }

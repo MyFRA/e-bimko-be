@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Helpers\ModelFileUploadHelper;
 use App\Models\Student;
 
 class StudentsRepository
@@ -26,5 +27,14 @@ class StudentsRepository
         return Student::where('nisn', $nisn)
             ->where('device_id', $deviceId)
             ->first();
+    }
+
+    public function updateProfilePictureByStudentObj($requestFileProfilePicture, $studentObj)
+    {
+        $studentObj->update([
+            'profile_pict' => ModelFileUploadHelper::modelFileUpdate($studentObj, 'profile_pict', $requestFileProfilePicture)
+        ]);
+
+        return $studentObj;
     }
 }
