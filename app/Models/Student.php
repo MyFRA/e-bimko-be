@@ -15,7 +15,7 @@ class Student extends Model
 
     protected $appends = ['profile_pict_url'];
 
-    public function getProfilePictUrlAttribute($value)
+    public function getProfilePictUrlAttribute()
     {
         return $this->profile_pict ? url('/storage/students/profile-pict/' . $this->profile_pict) : null;
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Mobile\DiagnosticController;
 use App\Http\Controllers\Api\Mobile\LoginController;
 use App\Http\Controllers\Api\Mobile\ProfileController;
 use Illuminate\Http\Request;
@@ -34,5 +35,11 @@ Route::group([
         ], function () {
             Route::post('update-profile-picture', [ProfileController::class, 'updateProfilePicture']);
         });
+    });
+
+    Route::group([
+        'prefix' => 'diagnostics'
+    ], function () {
+        Route::get('/', [DiagnosticController::class, 'get']);
     });
 });
