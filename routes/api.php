@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Mobile\ArticleCategoryController;
+use App\Http\Controllers\Api\Mobile\ArticleController;
 use App\Http\Controllers\Api\Mobile\DiagnosticController;
 use App\Http\Controllers\Api\Mobile\LoginController;
 use App\Http\Controllers\Api\Mobile\ProfileController;
@@ -55,5 +56,11 @@ Route::group([
         'prefix' => 'article-categories'
     ], function () {
         Route::get('/', [ArticleCategoryController::class, 'get']);
+    });
+
+    Route::group([
+        'prefix' => 'articles'
+    ], function () {
+        Route::get('/', [ArticleController::class, 'getAllByArticleCategoryId']);
     });
 });
