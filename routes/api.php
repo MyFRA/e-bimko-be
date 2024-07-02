@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Mobile\DiagnosticController;
 use App\Http\Controllers\Api\Mobile\LoginController;
 use App\Http\Controllers\Api\Mobile\ProfileController;
+use App\Http\Controllers\Api\Mobile\TeacherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,5 +42,11 @@ Route::group([
         'prefix' => 'diagnostics'
     ], function () {
         Route::get('/', [DiagnosticController::class, 'get']);
+    });
+
+    Route::group([
+        'prefix' => 'teachers'
+    ], function () {
+        Route::get('/', [TeacherController::class, 'get']);
     });
 });
