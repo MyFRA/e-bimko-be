@@ -25,8 +25,8 @@ class GetCurrentUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nisn' => 'required|exists:students,nisn',
-            'device_id' => 'required|exists:students,device_id'
+            'nip_nisn' => 'required|exists:mobile_users,nip_nisn',
+            'device_id' => 'required|exists:mobile_users,device_id'
         ];
     }
 

@@ -64,6 +64,6 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'api.mobile.auth-student' => \App\Http\Middleware\ApiAuthStudentMobile::class
+        'api.mobile.auth-student' => \App\Http\Middleware\ApiAuthMobileUser::class
     ];
 }

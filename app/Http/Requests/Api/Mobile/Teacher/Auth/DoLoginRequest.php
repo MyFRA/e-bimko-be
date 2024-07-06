@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Api\Mobile\Login;
+namespace App\Http\Requests\Api\Mobile\Teacher\Auth;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-class LoginRequest extends FormRequest
+class DoLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nip_nisn' => 'required|exists:mobile_users,nip_nisn',
-            'device_id' => 'required'
+            'email' => 'required|exists:teachers,email'
         ];
     }
 

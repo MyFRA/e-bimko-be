@@ -2,19 +2,19 @@
 
 namespace App\Helpers;
 
-use App\Repositories\StudentsRepository;
+use App\Repositories\MobileUserRepository;
 
 class AuthHelper
 {
 
-    public static function getCurrentAuthStudent()
+    public static function getCurrentAuthMobileUser()
     {
-        $nisn = request()->header('x-nisn');
+        $nip_nisn = request()->header('x-nip_nisn');
         $deviceId = request()->header('x-device_id');
 
-        $studentRepository = new StudentsRepository();
-        $student = $studentRepository->findStudentByNisnAndDeviceId($nisn, $deviceId);
+        $mobileUserRepo = new MobileUserRepository();
+        $mobileUser = $mobileUserRepo->findByNipNisnAndDeviceId($nip_nisn, $deviceId);
 
-        return $student;
+        return $mobileUser;
     }
 }

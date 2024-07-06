@@ -2,19 +2,19 @@
 
 namespace App\Http\Middleware;
 
-use App\Repositories\StudentsRepository;
+use App\Repositories\MobileUserRepository;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiAuthStudentMobile
+class ApiAuthMobileUser
 {
-    private $studentRepository;
+    private $mobileUserRepository;
 
     public function __construct()
     {
-        if (!$this->studentRepository) {
-            $this->studentRepository = new StudentsRepository();
+        if (!$this->mobileUserRepository) {
+            $this->mobileUserRepository = new MobileUserRepository();
         }
     }
 
@@ -25,13 +25,13 @@ class ApiAuthStudentMobile
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->header('x-nisn') || !$request->header('x-device_id')) {
+        if (!$request->header('x-nip_nisn') || !$request->header('x-device_id')) {
             return response()->json([
                 'msg' => 'Unauthenticated'
             ], 401);
         }
 
-        $student = $this->studentRepository->findStudentByNisnAndDeviceId($request->header('x-nisn'), $request->header('x-device_id'));
+        $student = $this->mobileUserRepository->findByNipNisnAndDeviceId($request->header('x-nip_nisn'), $request->header('x-device_id'));
         if (!$student) {
             return response()->json([
                 'msg' => 'Device ID Invalid'

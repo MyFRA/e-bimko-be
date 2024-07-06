@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('nisn')->unique();
+            $table->unsignedBigInteger('mobile_user_id');
             $table->string('name');
             $table->enum('gender', ['Male', 'Female']);
             $table->date('dob');
             $table->string('profile_pict')->nullable();
             $table->timestamps();
+
+            $table->foreign('mobile_user_id')->references('id')->on('mobile_users');
         });
     }
 

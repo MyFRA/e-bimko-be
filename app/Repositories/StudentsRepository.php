@@ -7,6 +7,11 @@ use App\Models\Student;
 
 class StudentsRepository
 {
+    public function findStudentByMobileUserId($mobileUserId)
+    {
+        return Student::where('mobile_user_id', $mobileUserId)->first();
+    }
+
 
     public function findStudentByNisn($nisn)
     {

@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\MobileUser;
 use App\Models\Teacher;
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class TeachersTableSeeder extends Seeder
 {
@@ -14,14 +16,19 @@ class TeachersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 10; $i++) {
-            $faker = Factory::create('id_ID');
+        $mobileUser = MobileUser::create([
+            'nip_nisn' => '54321',
+            'role' => 'teacher',
+            'device_id' => null
+        ]);
 
-            Teacher::create([
-                'name' => $faker->name,
-                'role' => $faker->jobTitle(),
-                'photo' => 'teacher.jpg'
-            ]);
-        }
+        Teacher::create([
+            'mobile_user_id' => $mobileUser->id,
+            'name' => 'Udin',
+            'gender' => 'Male',
+            'dob' => '2002-09-21',
+            'role' => 'Guru IPA',
+            'profile_pict' => 'teacher.jpg'
+        ]);
     }
 }

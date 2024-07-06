@@ -10,13 +10,13 @@ class Teacher extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'photo', 'role'
+        'mobile_user_id', 'name', 'gender', 'dob', 'profile_pict', 'role'
     ];
 
-    protected $appends = ['photo_url'];
+    protected $appends = ['profile_pict_url'];
 
-    public function getPhotoUrlAttribute()
+    public function getProfilePictUrlAttribute()
     {
-        return $this->photo ? url('/storage/teachers/photo/' . $this->photo) : null;
+        return $this->profile_pict ? url('/storage/teachers/profile-pict/' . $this->profile_pict) : null;
     }
 }

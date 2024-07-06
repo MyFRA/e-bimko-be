@@ -10,7 +10,7 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nisn', 'name', 'gender', 'dob', 'profile_pict', 'device_id'
+        'mobile_user_id', 'name', 'gender', 'dob', 'profile_pict'
     ];
 
     protected $appends = ['profile_pict_url'];

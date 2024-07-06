@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('mobile_user_id');
             $table->string('name');
-            $table->string('photo');
             $table->string('role');
+            $table->enum('gender', ['Male', 'Female']);
+            $table->date('dob');
+            $table->string('profile_pict')->nullable();
             $table->timestamps();
+
+            $table->foreign('mobile_user_id')->references('id')->on('mobile_users');
         });
     }
 
