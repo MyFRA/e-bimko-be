@@ -17,14 +17,15 @@ class ArticlesTableSeeder extends Seeder
     public function run(): void
     {
         for ($i = 0; $i < 20; $i++) {
-            $faker = Factory::create('id_ID');
+            $faker = Factory::create('en_EN');
+            $title = $faker->realText(50);
 
             Article::create([
                 'article_category_id' => ArticleCategory::inRandomOrder()->first()->id,
-                'title' => $faker->sentence(),
-                'slug' => Str::slug($faker->sentence()),
+                'title' => $title,
+                'slug' => Str::slug($title),
                 'thumbnail' => 'article.jpg',
-                'content' => $faker->paragraph()
+                'content' => $faker->realText(500)
             ]);
         }
     }

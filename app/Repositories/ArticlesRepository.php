@@ -9,6 +9,10 @@ class ArticlesRepository
 
     public function getAllByArticleCategoryId($articleCategoryId)
     {
-        return Article::where('article_category_id', $articleCategoryId)->orderBy('created_at', 'DESC')->get();
+        return Article::where('article_category_id', $articleCategoryId)->orderBy('created_at', 'DESC')->get()->map(function ($e) {
+            $e->date = $e->created_at->format('Y-m-d');
+
+            return $e;
+        });
     }
 }
