@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Panel\ArticleCategoryController;
 use App\Http\Controllers\Panel\DashboardController;
 use App\Http\Controllers\Panel\DiagnosticController;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,13 @@ Route::group([
             Route::get('/', [DiagnosticController::class, 'index']);
             Route::get('/{id}/edit', [DiagnosticController::class, 'edit']);
             Route::put('/{id}', [DiagnosticController::class, 'update']);
+        });
+        Route::group([
+            'prefix' => '/article-categories'
+        ], function () {
+            Route::get('/', [ArticleCategoryController::class, 'index']);
+            Route::get('/{id}/edit', [ArticleCategoryController::class, 'edit']);
+            Route::put('/{id}', [ArticleCategoryController::class, 'update']);
         });
     });
 });

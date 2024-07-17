@@ -11,4 +11,18 @@ class ArticleCategoryRepository
     {
         return ArticleCategory::orderBy('id', 'ASC')->get();
     }
+
+    public function findById($articleCategoryId)
+    {
+        return ArticleCategory::find($articleCategoryId);
+    }
+
+    public function updateByArticleCategoryObj($articleCategory, $request)
+    {
+        $articleCategory->update([
+            'name' => $request->name,
+        ]);
+
+        return $articleCategory;
+    }
 }
