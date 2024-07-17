@@ -40,6 +40,13 @@
                         <li class="{{ str_contains(Request::url(), '/panel/articles') ? 'active' : '' }}"><a href="/panel/articles"><i class="las la-newspaper"></i>Artikel</a></li>
                     </ul>
                 </li>
+                <li class="{{ str_contains(Request::url(), '/panel/teachers') ? 'active' : '' }}">
+                    <a href="/panel/teachers" class="iq-waves-effect">
+                        <span class="ripple rippleEffect"></span>
+                        <i class="las la-chalkboard-teacher iq-arrow-left"></i>
+                        <span>Guru</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <div class="p-3"></div>

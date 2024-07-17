@@ -19,4 +19,9 @@ class Teacher extends Model
     {
         return $this->profile_pict ? url('/storage/teachers/profile-pict/' . $this->profile_pict) : null;
     }
+
+    public function mobileUser()
+    {
+        return $this->belongsTo(MobileUser::class);
+    }
 }

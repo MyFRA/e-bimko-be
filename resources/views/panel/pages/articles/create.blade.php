@@ -6,7 +6,7 @@
             <div class="iq-card">
                 <div class="iq-card-header d-flex justify-content-between">
                     <div class="iq-header-title">
-                        <h4 class="card-title">Buat Artikel</h4>
+                        <h4 class="card-title">Tambah Artikel</h4>
                     </div>
                 </div>
                 <div class="iq-card-body">
@@ -24,7 +24,7 @@
                         <div class="form-group">
                             <label for="article_category_id">Kategori Artikel<span class="text-danger">*</span></label>
                             <select class="form-control @error('article_category_id') is-invalid @enderror" id="article_category_id" name="article_category_id">
-                                <option selected="" disabled>Pilih Kategori Artikel</option>
+                                <option selected disabled>Pilih Kategori Artikel</option>
                                 @foreach ($articleCategories as $articleCategory)
                                     <option value="{{ $articleCategory->id }}" {{ old('article_category_id') == $articleCategory->id ? 'selected' : '' }}>{{ $articleCategory->name }}</option>
                                 @endforeach

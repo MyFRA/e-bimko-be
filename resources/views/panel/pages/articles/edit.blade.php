@@ -25,7 +25,7 @@
                         <div class="form-group">
                             <label for="article_category_id">Kategori Artikel<span class="text-danger">*</span></label>
                             <select class="form-control @error('article_category_id') is-invalid @enderror" id="article_category_id" name="article_category_id">
-                                <option selected="" disabled>Pilih Kategori Artikel</option>
+                                <option selected disabled>Pilih Kategori Artikel</option>
                                 @foreach ($articleCategories as $articleCategory)
                                     <option value="{{ $articleCategory->id }}" @if (old('article_category_id')) {{ old('article_category_id') == $articleCategory->id ? 'selected' : '' }}
                                             @else

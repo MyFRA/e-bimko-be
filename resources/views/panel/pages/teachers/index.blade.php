@@ -10,11 +10,11 @@
                 </button>
             </div>
         @endif
-        <a href="/panel/articles/create" class="btn btn-sm btn-success mb-3"><i class="las la-plus"></i>Tambah Artikel</a>
+        <a href="/panel/teachers/create" class="btn btn-sm btn-success mb-3"><i class="las la-plus"></i>Tambah Guru</a>
         <div class="iq-card">
             <div class="iq-card-header d-flex justify-content-between">
                 <div class="iq-header-title">
-                    <h4 class="card-title">Artikel</h4>
+                    <h4 class="card-title">Guru</h4>
                 </div>
             </div>
             <div class="iq-card-body">
@@ -23,28 +23,32 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Thumbnail</th>
-                                <th scope="col">Judul</th>
-                                <th scope="col">Kategori</th>
+                                <th scope="col">Foto</th>
+                                <th scope="col">NIP</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Jenis Kelamin</th>
+                                <th scope="col">Device ID</th>
                                 <th scope="col" class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($articles as $index => $article)
+                            @foreach ($teachers as $index => $teacher)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>
-                                        <img src="{{ $article->thumbnail_url }}" alt="{{ $article->title }}" class="img-thumbnail" width="150px">
+                                        <img src="{{ $teacher->profile_pict_url }}" alt="{{ $teacher->name }}" class="img-thumbnail" width="100px">
                                     </td>
-                                    <td>{{ $article->title }}</td>
-                                    <td>{{ $article->articleCategory->name }}</td>
+                                    <td>{{ $teacher->mobileUser->nip_nisn }}</td>
+                                    <td>{{ $teacher->name }}</td>
+                                    <td>{{ $teacher->gender == 'Male' ? 'Laki-laki' : 'Perempuan' }}</td>
+                                    <td>{{ $teacher->mobileUser->device_id ? $teacher->mobileUser->device_id : 'Belum Login' }}</td>
                                     <td>
                                         <div class="d-flex align-items-center justify-content-center" style="gap: 5px">
-                                            <a href="/panel/articles/{{ $article->id }}/edit" class="btn btn-sm btn-primary">
+                                            <a href="/panel/teachers/{{ $teacher->id }}/edit" class="btn btn-sm btn-primary">
                                                 <i class="las la-edit"></i>
                                                 Edit
                                             </a>
-                                            <form action="/panel/articles/{{ $article->id }}" method="post" onsubmit="return confirm(`Apakah anda yakin, akan menghapus artikel {{ $article->title }}`)">
+                                            <form action="/panel/teachers/{{ $teacher->id }}" method="post" onsubmit="return confirm(`Apakah anda yakin, akan menghapus guru {{ $teacher->name }}`)">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-sm btn-danger" type="submit">
@@ -59,7 +63,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $articles->links() }}
+                {{ $teachers->links() }}
             </div>
         </div>
     </div>
