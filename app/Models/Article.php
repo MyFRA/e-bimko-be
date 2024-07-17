@@ -19,4 +19,9 @@ class Article extends Model
     {
         return $this->thumbnail ? url('/storage/articles/thumbnail/' . $this->thumbnail) : null;
     }
+
+    public function articleCategory()
+    {
+        return $this->belongsTo(ArticleCategory::class);
+    }
 }

@@ -1,7 +1,11 @@
 <!doctype html>
 <html lang="en">
 
-@include('panel.layouts.partials.head')
+<head>
+    @include('panel.layouts.partials.head')
+
+    @yield('stylesheets')
+</head>
 
 <body class="sidebar-main-active right-column-fixed">
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Panel\ArticleCategoryController;
+use App\Http\Controllers\Panel\ArticleController;
 use App\Http\Controllers\Panel\DashboardController;
 use App\Http\Controllers\Panel\DiagnosticController;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,16 @@ Route::group([
             Route::get('/', [ArticleCategoryController::class, 'index']);
             Route::get('/{id}/edit', [ArticleCategoryController::class, 'edit']);
             Route::put('/{id}', [ArticleCategoryController::class, 'update']);
+        });
+        Route::group([
+            'prefix' => '/articles'
+        ], function () {
+            Route::get('/', [ArticleController::class, 'index']);
+            Route::get('/create', [ArticleController::class, 'create']);
+            Route::post('/', [ArticleController::class, 'store']);
+            Route::get('/{id}/edit', [ArticleController::class, 'edit']);
+            Route::put('/{id}', [ArticleController::class, 'update']);
+            Route::delete('/{id}', [ArticleController::class, 'destroy']);
         });
     });
 });
