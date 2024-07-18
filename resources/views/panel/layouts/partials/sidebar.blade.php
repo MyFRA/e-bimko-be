@@ -47,6 +47,13 @@
                         <span>Guru</span>
                     </a>
                 </li>
+                <li class="{{ str_contains(Request::url(), '/panel/students') ? 'active' : '' }}">
+                    <a href="/panel/students" class="iq-waves-effect">
+                        <span class="ripple rippleEffect"></span>
+                        <i class="las la-user-tie iq-arrow-left"></i>
+                        <span>Siswa</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <div class="p-3"></div>

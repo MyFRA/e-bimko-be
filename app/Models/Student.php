@@ -10,7 +10,7 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
-        'mobile_user_id', 'name', 'gender', 'dob', 'profile_pict'
+        'mobile_user_id', 'name', 'gender', 'dob', 'profile_pict', 'academic_year'
     ];
 
     protected $appends = ['profile_pict_url'];
@@ -18,5 +18,10 @@ class Student extends Model
     public function getProfilePictUrlAttribute()
     {
         return $this->profile_pict ? url('/storage/students/profile-pict/' . $this->profile_pict) : null;
+    }
+
+    public function mobileUser()
+    {
+        return $this->belongsTo(MobileUser::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Helpers\ModelFileUploadHelper;
+use App\Models\MobileUser;
 use App\Models\Student;
 
 class StudentsRepository
@@ -41,5 +42,57 @@ class StudentsRepository
         ]);
 
         return $studentObj;
+    }
+
+    public function getAllWithPaginationForAdminPanel()
+    {
+        return Student::paginate(10);
+    }
+
+    public function findById($studentId)
+    {
+        return Student::find($studentId);
+    }
+
+    public function create($request)
+    {
+        $mobileUser = MobileUser::create([
+            'nip_nisn' => $request->nisn,
+            'role' => 'student'
+        ]);
+
+        $student = Student::create([
+            'mobile_user_id' => $mobileUser->id,
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
+            'academic_year' => "$request->academic_year_start/$request->academic_year_end",
+            'profile_pict' => ModelFileUploadHelper::modelFileStore('students', 'profile_pict', $request->file('profile_pict'))
+        ]);
+
+        return $student;
+    }
+
+    public function updateStudentByObjFromAdminPanel($student, $request)
+    {
+        $student->update([
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
+            'academic_year' => "$request->academic_year_start/$request->academic_year_end",
+            'profile_pict' => ModelFileUploadHelper::modelFileUpdate($student, 'profile_pict', $request->file('profile_pict'))
+        ]);
+
+        $student->mobileUser->update([
+            'nip_nisn' => $request->nisn
+        ]);
+
+        return $student;
+    }
+
+    public function deleteByStudentObj($student)
+    {
+        ModelFileUploadHelper::modelFileDelete($student, 'profile_pict');
+        $student->delete();
     }
 }

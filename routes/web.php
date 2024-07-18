@@ -5,6 +5,7 @@ use App\Http\Controllers\Panel\ArticleCategoryController;
 use App\Http\Controllers\Panel\ArticleController;
 use App\Http\Controllers\Panel\DashboardController;
 use App\Http\Controllers\Panel\DiagnosticController;
+use App\Http\Controllers\Panel\StudentController;
 use App\Http\Controllers\Panel\TeacherController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -73,6 +74,16 @@ Route::group([
             Route::get('/{id}/edit', [TeacherController::class, 'edit']);
             Route::put('/{id}', [TeacherController::class, 'update']);
             Route::delete('/{id}', [TeacherController::class, 'destroy']);
+        });
+        Route::group([
+            'prefix' => 'students'
+        ], function () {
+            Route::get('/', [StudentController::class, 'index']);
+            Route::get('/create', [StudentController::class, 'create']);
+            Route::post('/', [StudentController::class, 'store']);
+            Route::get('/{id}/edit', [StudentController::class, 'edit']);
+            Route::put('/{id}', [StudentController::class, 'update']);
+            Route::delete('/{id}', [StudentController::class, 'destroy']);
         });
     });
 });
