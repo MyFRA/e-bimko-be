@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Mobile\ChatController;
 use App\Http\Controllers\Api\Mobile\DiagnosticController;
 use App\Http\Controllers\Api\Mobile\LoginController;
 use App\Http\Controllers\Api\Mobile\ProfileController;
+use App\Http\Controllers\Api\Mobile\SuggestionBoxController;
 use App\Http\Controllers\Api\Mobile\Teacher\AuthController;
 use App\Http\Controllers\Api\Mobile\TeacherController;
 use Illuminate\Http\Request;
@@ -56,8 +57,6 @@ Route::group([
         Route::get('/', [ArticleController::class, 'getAllByArticleCategoryId']);
     });
 
-
-
     Route::group([
         'middleware' => ['api.mobile.auth-student']
     ], function () {
@@ -72,6 +71,12 @@ Route::group([
             'prefix' => 'profile'
         ], function () {
             Route::post('update-profile-picture', [ProfileController::class, 'updateProfilePicture']);
+        });
+
+        Route::group([
+            'prefix' => 'suggestion-box'
+        ], function () {
+            Route::post('/', [SuggestionBoxController::class, 'submitSuggestionBox']);
         });
     });
 });

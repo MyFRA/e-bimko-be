@@ -10,7 +10,7 @@
                     </div>
                 </div>
                 <div class="iq-card-body">
-                    <form action="/panel/diagnostics/{{ $diagnostic->id }}" method="POST" enctype="multipart/form-data">
+                    <form action="/panel/diagnostics/{{ $diagnostic->id }}" method="POST" enctype="multipart/form-data" id="form-submit" onsubmit="formOnSubmit()">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
@@ -34,11 +34,12 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Deskripsi<span class="text-danger">*</span></label>
-                            <textarea name="description" id="description" cols="30" rows="10" style="height: 150px" class="form-control @error('description') is-invalid @enderror" placeholder="Description">
-                                {{ old('description') ? old('description') : $diagnostic->description }}
-                            </textarea>
+                            <div id="editor">
+                                {!! old('description') ? old('description') : $diagnostic->description !!}
+                            </div>
+                            <input type="hidden" name="description" id="description" value="{{ old('description') ? old('description') : $diagnostic->description }}">
                             @error('description')
-                                <div class="invalid-feedback">
+                                <div class="text-danger small">
                                     {{ $message }}
                                 </div>
                             @enderror
@@ -63,7 +64,24 @@
     </div>
 @endsection
 
+@section('stylesheets')
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.css">
+    <style>
+        .ck-editor__editable {
+            min-height: 200px;
+        }
+    </style>
+@endsection
+
 @section('scripts')
+    <script type="importmap">
+        {
+            "imports": {
+                "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/42.0.1/ckeditor5.js",
+                "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/42.0.1/"
+            }
+        }
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             makeInputFileThumbnailListenChangeValue()
@@ -78,6 +96,45 @@
                     thumbnailPreviewElement.setAttribute('src', URL.createObjectURL(inputThumbnailElement.files[0]))
                 }
             })
+        }
+    </script>
+    <script type="module">
+        import {
+            ClassicEditor,
+            Essentials,
+            Paragraph,
+            Bold,
+            Italic,
+            Font,
+            List
+        } from 'ckeditor5';
+
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                plugins: [Essentials, Paragraph, Bold, Italic, Font, List],
+                toolbar: [
+                    'undo', 'redo', '|', 'bold', 'italic', '|', 'bulletedList', 'numberedList',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+                ],
+                placeholder: 'Tulis konten disini'
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <script>
+        function formOnSubmit() {
+            event.preventDefault()
+
+            const formSubmitElement = document.getElementById('form-submit')
+            const contentValue = window.editor.getData();
+
+            document.getElementById('description').value = contentValue
+
+            formSubmitElement.submit()
         }
     </script>
 @endsection
