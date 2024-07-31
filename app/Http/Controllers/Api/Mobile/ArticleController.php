@@ -20,7 +20,7 @@ class ArticleController extends Controller
 
     public function getAllByArticleCategoryId(GetAllByArticleCategoryIdRequest $request)
     {
-        $articles = $this->articlesRepository->getAllByArticleCategoryId($request->article_category_id);
+        $articles = $this->articlesRepository->getAllByArticleCategoryId($request->article_category_id, $request);
 
         return response([
             'msg' => 'Article Successfully Loaded',
