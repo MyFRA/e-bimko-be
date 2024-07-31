@@ -46,4 +46,14 @@ class MobileUserRepository
 
         return $mobileUser;
     }
+
+    public function checkIsDeviceIdExistsInDB($deviceId)
+    {
+        return MobileUser::where('device_id', $deviceId)->first() != null;
+    }
+
+    public function findById($id)
+    {
+        return MobileUser::find($id);
+    }
 }

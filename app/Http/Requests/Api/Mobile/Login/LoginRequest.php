@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\Mobile\Login;
 
+use App\Repositories\MobileUserRepository;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
@@ -26,7 +27,27 @@ class LoginRequest extends FormRequest
     {
         return [
             'nip_nisn' => 'required|exists:mobile_users,nip_nisn',
-            'device_id' => 'required'
+            'device_id' => ['required', function ($attribute, $value, $fail) {
+                try {
+                    $mobileUserRepository = new MobileUserRepository();
+
+                    $mobileUser = $mobileUserRepository->findByNipNisn(request()->nip_nisn);
+
+                    if ($mobileUser->device_id != null) {
+                        if ($mobileUser->device_id != $value) {
+                            $fail(' NIP / NISN telah tertaut di perangkat lain');
+                        }
+                    } else {
+                        $isDeviceIdExistsInDb = $mobileUserRepository->checkIsDeviceIdExistsInDB($value);
+
+                        if ($isDeviceIdExistsInDb) {
+                            $fail(' Device telah digunakan di NIP / NISN lain');
+                        }
+                    }
+                } catch (\Throwable $th) {
+                    $fail('NIP / NISN telah tertaut di perangkat lain');
+                }
+            }]
         ];
     }
 

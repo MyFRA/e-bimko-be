@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-class GetChatByStudentIdAndTeacherIdRequest extends FormRequest
+class GetChatByOponentIdRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class GetChatByStudentIdAndTeacherIdRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'teacher_id' => 'required|exists:teachers,id',
+            'opponent_id' => 'required|exists:mobile_users,id',
         ];
     }
 

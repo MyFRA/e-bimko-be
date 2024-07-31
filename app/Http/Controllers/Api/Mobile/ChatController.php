@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Mobile;
 
 use App\Helpers\AuthHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Mobile\Chat\GetChatByStudentIdAndTeacherIdRequest;
 use App\Http\Requests\Api\Mobile\Chat\SendChatRequest;
+use App\Http\Requests\Api\Mobile\Chat\GetChatByOponentIdRequest;
 use App\Repositories\ChatsRepository;
 use App\Repositories\StudentsRepository;
 use Illuminate\Http\Request;
@@ -26,12 +26,11 @@ class ChatController extends Controller
         }
     }
 
-    public function getChatByStudentIdAndTeacherId(GetChatByStudentIdAndTeacherIdRequest $request)
+    public function getChatByOponentId($mobileUserOpponentId)
     {
         $mobileUser = AuthHelper::getCurrentAuthMobileUser();
-        $studentObj = $this->studentRepository->findStudentByMobileUserId($mobileUser->id);
 
-        $chats = $this->chatsRepository->getChatByStudentIdAndTeacherId($studentObj->id, $request->teacher_id);
+        $chats = $this->chatsRepository->getChatByMobileUserAndMobileUserOpponentId($mobileUser, $mobileUserOpponentId);
 
         return response()->json([
             'msg' => 'Chat Successfully Loaded',
@@ -39,16 +38,28 @@ class ChatController extends Controller
         ]);
     }
 
-    public function sendChat(SendChatRequest $request)
+    public function sendChatToOpponentId(SendChatRequest $request, $opponentMobileUserId)
     {
         $mobileUser = AuthHelper::getCurrentAuthMobileUser();
-        $student = $this->studentRepository->findStudentByMobileUserId($mobileUser->id);
 
-        $chat = $this->chatsRepository->studentObjCreateChat($student, $request);
+        $chat = $this->chatsRepository->sendChatFromMobileUserToOpponentMobileUserId($mobileUser, $opponentMobileUserId, $request);
 
         return response()->json([
             'msg' => 'Chat Successfully Created',
             'data' => $chat
         ]);
+    }
+
+    public function getAllChatGroupedForMobileUser()
+    {
+        $mobileUser = AuthHelper::getCurrentAuthMobileUser();
+
+        $chats = $this->chatsRepository->getAllChatGroupedForMobileUserByMobileUser($mobileUser);
+
+        return response()->json([
+            'code' => 200,
+            'msg' => 'CHATS LOADED',
+            'data' => $chats
+        ], 200);
     }
 }

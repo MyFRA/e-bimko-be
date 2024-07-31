@@ -63,8 +63,9 @@ Route::group([
         Route::group([
             'prefix' => 'chats'
         ], function () {
-            Route::get('/', [ChatController::class, 'getChatByStudentIdAndTeacherId']);
-            Route::post('/', [ChatController::class, 'sendChat']);
+            Route::get('/all-chats-grouped', [ChatController::class, 'getAllChatGroupedForMobileUser']);
+            Route::get('/{mobileUserOpponentId}', [ChatController::class, 'getChatByOponentId']);
+            Route::post('/{opponentMobileUserId}', [ChatController::class, 'sendChatToOpponentId']);
         });
 
         Route::group([
