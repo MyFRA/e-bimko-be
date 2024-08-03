@@ -25,7 +25,7 @@ class GetChatByOponentIdRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'opponent_id' => 'required|exists:mobile_users,id',
+            'page' => 'required|numeric|min:0',
         ];
     }
 

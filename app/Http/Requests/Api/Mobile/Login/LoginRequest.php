@@ -27,6 +27,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'nip_nisn' => 'required|exists:mobile_users,nip_nisn',
+            'fcm_token' => ['required', 'string'],
             'device_id' => ['required', function ($attribute, $value, $fail) {
                 try {
                     $mobileUserRepository = new MobileUserRepository();

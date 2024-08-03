@@ -65,6 +65,7 @@ Route::group([
         ], function () {
             Route::get('/all-chats-grouped', [ChatController::class, 'getAllChatGroupedForMobileUser']);
             Route::get('/{mobileUserOpponentId}', [ChatController::class, 'getChatByOponentId']);
+            Route::get('/{mobileUserOpponentId}/after-chat-id/{chatId}', [ChatController::class, 'getChatByOponentIdAndAfterChatId']);
             Route::post('/{opponentMobileUserId}', [ChatController::class, 'sendChatToOpponentId']);
         });
 

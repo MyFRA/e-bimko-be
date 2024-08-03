@@ -10,7 +10,7 @@ class MobileUser extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nip_nisn', 'role', 'device_id'
+        'nip_nisn', 'role', 'device_id', 'fcm_token'
     ];
 
     public function student()

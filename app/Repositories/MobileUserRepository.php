@@ -38,10 +38,15 @@ class MobileUserRepository
         return $mobileUser;
     }
 
-    public function updateDeviceIdByMobileUserObj($deviceId, $mobileUser)
+    public function updateDeviceIdAndFcmTokenByMobileUserObj($deviceId, $fcmToken, $mobileUser)
     {
+        $mobileUser->where('fcm_token', $fcmToken)->where('device_id', '!=', $deviceId)->update([
+            'fcm_token' => 'null'
+        ]);
+
         $mobileUser->update([
-            'device_id' => $deviceId
+            'device_id' => $deviceId,
+            'fcm_token' => $fcmToken
         ]);
 
         return $mobileUser;

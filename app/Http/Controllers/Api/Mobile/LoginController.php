@@ -37,8 +37,7 @@ class LoginController extends Controller
     {
         $mobileUser = $this->mobileUserRepository->findByNipNisn($request->nip_nisn);
 
-        $mobileUser = $this->mobileUserRepository->updateDeviceIdByMobileUserObj($request->device_id, $mobileUser);
-
+        $mobileUser = $this->mobileUserRepository->updateDeviceIdAndFcmTokenByMobileUserObj($request->device_id, $request->fcm_token, $mobileUser);
 
         if ($mobileUser->role == 'student') {
             $mobileUser->detail = $this->studentRepository->findStudentByMobileUserId($mobileUser->id);
