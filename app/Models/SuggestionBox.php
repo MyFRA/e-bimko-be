@@ -9,5 +9,5 @@ class SuggestionBox extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['suggestion'];
+    protected $fillable = ['suggestion', 'is_readed'];
 }

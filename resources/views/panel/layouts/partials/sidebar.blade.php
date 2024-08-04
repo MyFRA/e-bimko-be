@@ -1,6 +1,14 @@
+@php
+    use App\Repositories\SuggestionBoxRepository;
+
+    $suggestionBoxRepository = new SuggestionBoxRepository();
+
+    $amountNotReadedSuggestionBox = $suggestionBoxRepository->countNotReadedSuggestionBox();
+@endphp
+
 <div class="iq-sidebar">
     <div class="iq-navbar-logo d-flex justify-content-between">
-        <a href="index.html" class="header-logo">
+        <a href="/panel/dashboard" class="header-logo">
             <img src="/assets/images/logo.png" class="img-fluid rounded" alt="">
             <span>E-Bimko</span>
         </a>
@@ -52,6 +60,14 @@
                         <span class="ripple rippleEffect"></span>
                         <i class="las la-user-tie iq-arrow-left"></i>
                         <span>Siswa</span>
+                    </a>
+                </li>
+                <li class="{{ str_contains(Request::url(), '/panel/suggestion-boxes') ? 'active' : '' }}">
+                    <a href="/panel/suggestion-boxes" class="iq-waves-effect">
+                        <span class="ripple rippleEffect"></span>
+                        <i class="las la-inbox iq-arrow-left"></i>
+                        <span>Kotak Saran</span>
+                        <span class="badge badge-danger" style="position: absolute; top: 0; width: 22px; height: 22px; border-radius: 11px; display: flex; align-items: center; justify-content: center; left: 0">{{ $amountNotReadedSuggestionBox }}</span>
                     </a>
                 </li>
             </ul>

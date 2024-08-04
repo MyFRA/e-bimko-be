@@ -6,6 +6,7 @@ use App\Http\Controllers\Panel\ArticleController;
 use App\Http\Controllers\Panel\DashboardController;
 use App\Http\Controllers\Panel\DiagnosticController;
 use App\Http\Controllers\Panel\StudentController;
+use App\Http\Controllers\Panel\SuggestionBoxController;
 use App\Http\Controllers\Panel\TeacherController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -84,6 +85,12 @@ Route::group([
             Route::get('/{id}/edit', [StudentController::class, 'edit']);
             Route::put('/{id}', [StudentController::class, 'update']);
             Route::delete('/{id}', [StudentController::class, 'destroy']);
+        });
+        Route::group([
+            'prefix' => 'suggestion-boxes'
+        ], function () {
+            Route::get('/', [SuggestionBoxController::class, 'index']);
+            Route::get('/{id}', [SuggestionBoxController::class, 'show']);
         });
     });
 });
