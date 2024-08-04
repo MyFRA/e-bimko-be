@@ -66,7 +66,11 @@ class ChatController extends Controller
             $userStudentOrTeacher = $this->teacherRepository->findTeacherByMobileUserId($mobileUser->id);
         }
 
-        FirebaseHelper::sendNotification($userStudentOrTeacher->name, $chat->chat, $opponentMobileUser->fcm_token, $chatGrouped);
+        try {
+            FirebaseHelper::sendNotification($userStudentOrTeacher->name, $chat->chat, $opponentMobileUser->fcm_token, $chatGrouped);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
 
         return response()->json([
             'msg' => 'Chat Successfully Created',

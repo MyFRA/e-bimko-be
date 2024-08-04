@@ -5,17 +5,23 @@ namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Panel\Student\StoreRequest;
 use App\Http\Requests\Panel\Student\UpdateRequest;
+use App\Repositories\MobileUserRepository;
 use App\Repositories\StudentsRepository;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
     private $studentRepository;
+    private $mobileUserRepository;
 
     public function __construct()
     {
         if (!$this->studentRepository) {
             $this->studentRepository = new StudentsRepository();
+        }
+
+        if (!$this->mobileUserRepository) {
+            $this->mobileUserRepository = new MobileUserRepository();
         }
     }
 
@@ -73,5 +79,14 @@ class StudentController extends Controller
         $this->studentRepository->deleteByStudentObj($article);
 
         return redirect('/panel/students')->with('success', 'Data siswa telah dihapus');
+    }
+
+    public function resetDevice($id)
+    {
+        $student = $this->studentRepository->findById($id);
+        $mobileUser = $this->mobileUserRepository->findById($student->mobile_user_id);
+        $this->mobileUserRepository->resetDeviceByMobileUserObj($mobileUser);
+
+        return back()->with('success', 'Device siswa ' . $student->name . ' telah di reset');
     }
 }

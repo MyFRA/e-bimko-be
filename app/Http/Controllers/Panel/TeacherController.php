@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 class TeacherController extends Controller
 {
     private $teacherRepository;
+    private $mobileUserRepository;
 
     public function __construct()
     {
@@ -73,5 +74,14 @@ class TeacherController extends Controller
         $this->teacherRepository->deleteByTeacherObj($article);
 
         return redirect('/panel/teachers')->with('success', 'Data guru telah dihapus');
+    }
+
+    public function resetDevice($id)
+    {
+        $teacher = $this->teacherRepository->findById($id);
+        $mobileUser = $this->mobileUserRepository->findById($teacher->mobile_user_id);
+        $this->mobileUserRepository->resetDeviceByMobileUserObj($mobileUser);
+
+        return back()->with('success', 'Device guru ' . $teacher->name . ' telah di reset');
     }
 }

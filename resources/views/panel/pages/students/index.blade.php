@@ -46,6 +46,16 @@
                                     <td>{{ $student->mobileUser->device_id ? $student->mobileUser->device_id : 'Belum Login' }}</td>
                                     <td>
                                         <div class="d-flex align-items-center justify-content-center" style="gap: 5px">
+                                            @if ($student->mobileUser->device_id)
+                                                <form action="/panel/students/{{ $student->id }}/reset-device" onsubmit="return confirm('Apakah anda yakin?')" method="post">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-sm btn-dark">
+                                                        <i class="las la-exclamation-triangle"></i>
+                                                        Reset Device
+                                                    </button>
+                                                </form>
+                                            @endif
                                             <a href="/panel/students/{{ $student->id }}/edit" class="btn btn-sm btn-primary">
                                                 <i class="las la-edit"></i>
                                                 Edit

@@ -61,4 +61,12 @@ class MobileUserRepository
     {
         return MobileUser::find($id);
     }
+
+    public function resetDeviceByMobileUserObj($mobileUser)
+    {
+        $mobileUser->update([
+            'device_id' => null,
+            'fcm_token' => null
+        ]);
+    }
 }

@@ -75,6 +75,7 @@ Route::group([
             Route::get('/{id}/edit', [TeacherController::class, 'edit']);
             Route::put('/{id}', [TeacherController::class, 'update']);
             Route::delete('/{id}', [TeacherController::class, 'destroy']);
+            Route::put('/{id}/reset-device', [StudentController::class, 'resetDevice']);
         });
         Route::group([
             'prefix' => 'students'
@@ -85,6 +86,7 @@ Route::group([
             Route::get('/{id}/edit', [StudentController::class, 'edit']);
             Route::put('/{id}', [StudentController::class, 'update']);
             Route::delete('/{id}', [StudentController::class, 'destroy']);
+            Route::put('/{id}/reset-device', [StudentController::class, 'resetDevice']);
         });
         Route::group([
             'prefix' => 'suggestion-boxes'
