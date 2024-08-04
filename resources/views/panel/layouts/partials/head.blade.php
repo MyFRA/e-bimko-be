@@ -1,7 +1,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>FinDash - Responsive Bootstrap 4 Admin Dashboard Template</title>
+    <title>E-Bimko ~ Layanan Aplikasi Digital Bimbingan Konseling</title>
     <!-- Favicon -->
     <link rel="shortcut icon" href="/assets/images/favicon.ico" />
     <!-- Bootstrap CSS -->
