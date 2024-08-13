@@ -53,11 +53,17 @@ class LoginController extends Controller
 
     public function getCurrentUser(GetCurrentUserRequest $request)
     {
-        $student = $this->mobileUserRepository->findByNipNisnAndDeviceId($request->nip_nisn, $request->device_id);
+        $mobileUser = $this->mobileUserRepository->findByNipNisnAndDeviceId($request->nip_nisn, $request->device_id);
+
+        if ($mobileUser->role == 'student') {
+            $mobileUser->detail = $this->studentRepository->findStudentByMobileUserId($mobileUser->id);
+        } else if ($mobileUser->role == 'teacher') {
+            $mobileUser->detail = $this->teacherRepository->findTeacherByMobileUserId($mobileUser->id);
+        }
 
         return response()->json([
             'msg' => 'Current User Is Auth',
-            'data' => $student
+            'data' => $mobileUser
         ]);
     }
 }
