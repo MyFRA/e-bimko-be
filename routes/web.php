@@ -5,6 +5,7 @@ use App\Http\Controllers\Panel\ArticleCategoryController;
 use App\Http\Controllers\Panel\ArticleController;
 use App\Http\Controllers\Panel\DashboardController;
 use App\Http\Controllers\Panel\DiagnosticController;
+use App\Http\Controllers\Panel\MobileAppController;
 use App\Http\Controllers\Panel\StudentController;
 use App\Http\Controllers\Panel\SuggestionBoxController;
 use App\Http\Controllers\Panel\TeacherController;
@@ -93,6 +94,12 @@ Route::group([
         ], function () {
             Route::get('/', [SuggestionBoxController::class, 'index']);
             Route::get('/{id}', [SuggestionBoxController::class, 'show']);
+        });
+        Route::group([
+            'prefix' => 'app-settings'
+        ], function () {
+            Route::get('/', [MobileAppController::class, 'edit']);
+            Route::put('/', [MobileAppController::class, 'update']);
         });
     });
 });

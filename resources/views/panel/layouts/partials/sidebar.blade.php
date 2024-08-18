@@ -70,6 +70,13 @@
                         <span class="badge badge-danger" style="position: absolute; top: 0; width: 22px; height: 22px; border-radius: 11px; display: flex; align-items: center; justify-content: center; left: 0">{{ $amountNotReadedSuggestionBox }}</span>
                     </a>
                 </li>
+                <li class="{{ str_contains(Request::url(), '/panel/app-settings') ? 'active' : '' }}">
+                    <a href="/panel/app-settings" class="iq-waves-effect">
+                        <span class="ripple rippleEffect"></span>
+                        <i class="las la-mobile iq-arrow-left"></i>
+                        <span>Pengaturan Aplikasi</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <div class="p-3"></div>

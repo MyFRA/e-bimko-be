@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Mobile\ArticleController;
 use App\Http\Controllers\Api\Mobile\ChatController;
 use App\Http\Controllers\Api\Mobile\DiagnosticController;
 use App\Http\Controllers\Api\Mobile\LoginController;
+use App\Http\Controllers\Api\Mobile\MobileAppController;
 use App\Http\Controllers\Api\Mobile\ProfileController;
 use App\Http\Controllers\Api\Mobile\SuggestionBoxController;
 use App\Http\Controllers\Api\Mobile\Teacher\AuthController;
@@ -49,6 +50,12 @@ Route::group([
         'prefix' => 'article-categories'
     ], function () {
         Route::get('/', [ArticleCategoryController::class, 'get']);
+    });
+
+    Route::group([
+        'prefix' => 'mobile-app'
+    ], function () {
+        Route::get('/', [MobileAppController::class, 'index']);
     });
 
     Route::group([
