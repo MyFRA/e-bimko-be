@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Panel\Teacher\StoreRequest;
 use App\Http\Requests\Panel\Teacher\UpdateRequest;
+use App\Repositories\MobileUserRepository;
 use App\Repositories\TeachersRepository;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,10 @@ class TeacherController extends Controller
     {
         if (!$this->teacherRepository) {
             $this->teacherRepository = new TeachersRepository();
+        }
+
+        if (!$this->mobileUserRepository) {
+            $this->mobileUserRepository = new MobileUserRepository();
         }
     }
 
