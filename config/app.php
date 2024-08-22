@@ -59,6 +59,8 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    'TELEGRAM_BOT_API_TOKEN' => env('TELEGRAM_BOT_API_TOKEN'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Api\Mobile;
 
+use App\Helpers\TelegramBotHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Mobile\Login\GetCurrentUserRequest;
 use App\Http\Requests\Api\Mobile\Login\LoginRequest;
 use App\Repositories\MobileUserRepository;
 use App\Repositories\StudentsRepository;
 use App\Repositories\TeachersRepository;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -44,6 +47,23 @@ class LoginController extends Controller
         } else if ($mobileUser->role == 'teacher') {
             $mobileUser->detail = $this->teacherRepository->findTeacherByMobileUserId($mobileUser->id);
         }
+
+        $dt = new DateTime();
+        $dt->setTimezone(new DateTimeZone('Asia/Jakarta'));
+        $dt->setTimestamp(time());
+
+        TelegramBotHelper::sendMessage(
+            "
+*New Login Access Detected*
+
+NIP/NISN        : " . $request->nip_nisn . "
+Device Name  : " . $request->device_name . "
+Device ID         : " . $request->device_id . "
+DateTime        : " . $dt->format('Y-m-d H:i:s') . "
+Status              : ✅ *Success*
+Description     : -
+            "
+        );
 
         return response()->json([
             'msg' => 'Login Successfully',

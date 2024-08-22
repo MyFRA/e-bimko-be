@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Api\Mobile\Login;
 
+use App\Helpers\TelegramBotHelper;
 use App\Repositories\MobileUserRepository;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
@@ -28,6 +31,7 @@ class LoginRequest extends FormRequest
         return [
             'nip_nisn' => 'required|exists:mobile_users,nip_nisn',
             'fcm_token' => ['required', 'string'],
+            'device_name' => ['required', 'string'],
             'device_id' => ['required', function ($attribute, $value, $fail) {
                 try {
                     $mobileUserRepository = new MobileUserRepository();
@@ -59,6 +63,23 @@ class LoginRequest extends FormRequest
             'msg'   => "Error Validations",
             'error' => $validator->errors()->first(),
         ], 422);
+
+        $dt = new DateTime();
+        $dt->setTimezone(new DateTimeZone('Asia/Jakarta'));
+        $dt->setTimestamp(time());
+
+        TelegramBotHelper::sendMessage(
+            "
+*New Login Access Detected*
+
+NIP/NISN        : " . request()->nip_nisn . "
+Device Name  : " . request()->device_name . "
+Device ID         : " . request()->device_id . "
+DateTime        : " . $dt->format('Y-m-d H:i:s') . "
+Status              : ❌ *Failed*
+Description     : " . $validator->errors()->first() . "
+            "
+        );
 
         throw new ValidationException($validator, $response);
     }
