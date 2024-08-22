@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\Http;
+
 class TelegramBotHelper
 {
     public static function sendMessage($message)
@@ -14,6 +16,6 @@ class TelegramBotHelper
             'parse_mode' => 'markdown'
         ];
 
-        return file_get_contents('http://api.telegram.org/bot' . $apiToken . '/sendMessage?' . http_build_query($data));
+        return Http::get('http://api.telegram.org/bot' . $apiToken . '/sendMessage?' . http_build_query($data));
     }
 }

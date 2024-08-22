@@ -73,7 +73,7 @@ class LoginRequest extends FormRequest
 *New Login Access Detected*
 
 NIP/NISN        : " . request()->nip_nisn . "
-Device Name  : " . request()->device_name . "
+Device Name  : " . str_replace('_', '-', request()->device_name) . "
 Device ID         : " . request()->device_id . "
 DateTime        : " . $dt->format('Y-m-d H:i:s') . "
 Status              : ❌ *Failed*
