@@ -13,7 +13,7 @@ class TelegramBotHelper
             'text' => $message,
             'parse_mode' => 'markdown'
         ];
+
         return file_get_contents('http://api.telegram.org/bot' . $apiToken . '/sendMessage?' . http_build_query($data));
-        dd('fds');
     }
 }
